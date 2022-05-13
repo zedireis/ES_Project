@@ -21,7 +21,7 @@ In the case of npm not having modules
 ------------ AWS DEPLOY ---------------
 
   1.  Uncomment WhiteNoise library in djangoRestaurant/settings.py
-  2.  npm run dev
+  2.  npm run build
   3.  python manage.py collectstatic
   4.  Create a zip from the root folder (not a zip of a folder with root inside)
   5.  Upload and deploy
