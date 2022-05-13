@@ -1,4 +1,12 @@
+const path = require('path');
+const WatchExternalFilesPlugin = require('webpack-watch-files-plugin').default;
+
 module.exports = {
+  entry : "./src/index.js",
+  watchOptions: {
+    poll: true,
+    ignored: /node_modules/
+  },
   module: {
     rules: [
       {
@@ -9,5 +17,17 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  output: {
+    path: path.resolve(__dirname,'static/frontend'),
+  },
+  plugins: [
+    // ....
+    new WatchExternalFilesPlugin({
+      files: [
+        './src/components/*.js',
+      ],
+      verbose : true
+    })
+  ]
 };
