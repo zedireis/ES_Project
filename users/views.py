@@ -2,11 +2,13 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
+from django.views.decorators.csrf import csrf_exempt
 from users.serializers import UserSerializer
 from users.models import User
 import jwt, datetime
 
 # Create your views here.
+
 class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -15,6 +17,19 @@ class RegisterView(APIView):
         return Response(serializer.data)
 
 class LoginView(APIView):
+    def get(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            return Response({"login":False})
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            return Response({"login":False})
+
+        return Response({"login":True})
+
     def post(self, request):
         email = request.data['email']
         password = request.data['password']
@@ -54,7 +69,7 @@ class UserView(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         try:
-            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 

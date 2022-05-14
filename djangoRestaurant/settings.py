@@ -137,7 +137,6 @@ STATIC_URL = '/static/'
 # We made our own auth model - JR
 AUTH_USER_MODEL = 'users.User'
 
-#CORS_ORIGIN_ALLOW_ALL = True
-#CORS_ALLOW_CREDENTIALS = True
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_COOKIE_NAME = "csrftoken"

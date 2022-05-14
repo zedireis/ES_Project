@@ -15,18 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from restaurant import urls as restaurant_urls
-from kitchen import urls as kitchen_urls
 from frontend import urls as frontend_urls
 
-from users.views import LoginView as login
-from users.views import LogoutView as logout
+from users.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('restaurant/',include(restaurant_urls)),
-    #path('kitchen/',include(kitchen_urls)),
     path('',include(frontend_urls)),
-    path('kitchen/login',login.as_view()),
-    path('kitchen/logout',logout.as_view()),
 ]
