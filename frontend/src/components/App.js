@@ -2,28 +2,18 @@ import React, { Component, useState, useEffect } from "react";
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import { render } from "react-dom";
 import { KitchenPages, Kitchen_login, Kitchen_homepage } from "./Kitchen";
+import { RestaurantPages, Restaurant_login, Restaurant_homepage } from "./Restaurant";
 import axios from "axios";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
-
-const Client_homepage = () => {
-  const year = new Date().getFullYear();
-  return (
-    <div>
-      <h2>
-        <p>WELCOME TO CLIENT HOMEPAGE!</p>
-      </h2>
-      <footer>Copyright ⓒ {year}</footer>
-    </div>
-  );
-}
 
 class App extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      isLogged : false
+      isLogged : false,
+      isStaff : 1
     };
   }
 
@@ -34,7 +24,8 @@ class App extends Component {
     }).then((response)=>{
       const data = response.data;
       /* this.setState({isLogged : true}) */
-      this.setState({isLogged : data.login})
+      this.setState({isLogged : data.login});
+      this.setState({isStaff : data.role});
     }).catch((error) => {
       if (error.response) {
         console.log(error.response);
@@ -49,9 +40,10 @@ class App extends Component {
     console.log("IS LOGGED -> "+this.state.isLogged);
   }
 
-  onLogged = ({loginStatus}) => {
-    console.log("GOING TO CHANGE STATE "+ loginStatus);
+  onLogged = ({loginStatus, staffStatus}) => {
+    console.log("GOING TO CHANGE STATE "+ loginStatus + staffStatus);
     this.setState({isLogged : loginStatus});
+    this.setState({isStaff : staffStatus});
   }
 
   render() {
@@ -60,9 +52,10 @@ class App extends Component {
       <h1>HELLO!</h1>
       <Router>
         <Routes>
-          <Route exact path="/kitchen"  element={this.state.isLogged?<Navigate to="/kitchen/homepage" />:<Kitchen_login onLogin={this.onLogged}/>}></Route>
-          <Route exact path="/restaurant"  element={<Client_homepage />}></Route>
-          <Route path="/kitchen/homepage" element={this.state.isLogged?<Kitchen_homepage onLogout={this.onLogged}/>:<Navigate to="/kitchen"/>} />
+          <Route exact path="/restaurant"  element={this.state.isLogged ? <Navigate to="/restaurant/homepage" />:<Restaurant_login onLogin={this.onLogged}/>}></Route>
+          <Route path="/restaurant/homepage" element={this.state.isLogged ? <Restaurant_homepage onLogout={this.onLogged}/>:<Navigate to="/restaurant"/>} />
+          <Route exact path="/kitchen"  element={this.state.isLogged && this.state.isStaff > 1 ?<Navigate to="/kitchen/homepage" />:<Kitchen_login onLogin={this.onLogged}/>}></Route>
+          <Route path="/kitchen/homepage" element={this.state.isLogged && this.state.isStaff > 1 ?<Kitchen_homepage onLogout={this.onLogged}/>:<Navigate to="/kitchen"/>} />
         </Routes>
       </Router>
       </div>

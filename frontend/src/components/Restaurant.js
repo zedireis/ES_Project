@@ -5,7 +5,7 @@ import axios from "axios";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
-export const Kitchen_homepage = ({onLogout}) => {
+export const Restaurant_homepage = ({onLogout}) => {
 
     const onClick = ()=>{
         axios({
@@ -16,7 +16,7 @@ export const Kitchen_homepage = ({onLogout}) => {
             const data = response.data;
             console.log(response.data);
             onLogout({loginStatus : false, staffStatus : 1});
-            nav("/kitchen");
+            nav("/restaurant");
         }).catch((error) => {
             if (error.response) {
                 console.log(error.response);
@@ -35,7 +35,7 @@ export const Kitchen_homepage = ({onLogout}) => {
     )
   }
 
-export const  Kitchen_login = ({onLogin}) => {
+export const  Restaurant_login = ({onLogin}) => {
     const year = new Date().getFullYear();
     const [formData,setFormData] = useState({
         email:'',
@@ -59,13 +59,13 @@ export const  Kitchen_login = ({onLogin}) => {
             data:{
             email : email,
             password : password,
-            role : 2
+            role : 1
             },
             responseType: 'json'
         }).then((response)=>{
             const data = response.data;
             onLogin({loginStatus : true, staffStatus : 2});
-            nav("/kitchen/homepage");
+            nav("/restaurant/homepage");
         }).catch((error) => {
             if (error.response) {
             console.log(error.response.status);
@@ -80,7 +80,7 @@ export const  Kitchen_login = ({onLogin}) => {
     return (
         <div>
         <h2>
-            <p>WELCOME TO KITCHEN HOMEPAGE!</p>
+            <p>WELCOME TO RESTAURANT HOMEPAGE!</p>
         </h2>
         <div>
             <input type="text" 
@@ -105,7 +105,7 @@ export const  Kitchen_login = ({onLogin}) => {
     );
 }
 
-function KitchenPages() {
+function RestaurantPages() {
 
     return (
     <div>
@@ -114,4 +114,4 @@ function KitchenPages() {
     );
 }
   
-export default KitchenPages;
+export default RestaurantPages;

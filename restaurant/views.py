@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse
+from djangoRestaurant.decorators import  needs_login
+from frontend.views import index
 
 # Create your views here.
-def homepage(request):
-    s = "<h1>Welcome to restaurant homepage!</h1>"
-    return HttpResponse(s)
+@needs_login
+def homepage(request,user):
+    return index(request)

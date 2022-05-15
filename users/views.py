@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from django.views.decorators.csrf import csrf_exempt
 from users.serializers import UserSerializer
-from users.models import User
+from users.models import User, Staff, Client
 import jwt, datetime
 
 # Create your views here.
@@ -28,13 +28,19 @@ class LoginView(APIView):
         except jwt.ExpiredSignatureError:
             return Response({"login":False})
 
-        return Response({"login":True})
+        return Response({"login" : True , "role" : payload['role']})
 
     def post(self, request):
         email = request.data['email']
         password = request.data['password']
+        role = request.data['role']
 
-        user = User.objects.filter(email=email).first()
+        
+        #user = User.objects.filter(email=email, role=role).first()
+        
+        #Allow staff to order meals
+        user = User.objects.filter(email=email, role__gte=role).first()
+        
 
         if user is None:
             raise AuthenticationFailed('User not found!')
@@ -44,6 +50,7 @@ class LoginView(APIView):
 
         payload = {
             'id' : user.id,
+            'role' : user.role,
             'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             'iat' : datetime.datetime.utcnow()
         }
@@ -56,7 +63,7 @@ class LoginView(APIView):
 
         response.data = {
             'message' : 'Success',
-            'jwt' : token
+            'role' : user.role
         }
 
         return response
