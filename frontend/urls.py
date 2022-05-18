@@ -12,5 +12,5 @@ urlpatterns = [
     path('kitchen/create_food', kitchen.CreateFood.as_view()),
     path('kitchen/food_list', kitchen.ListFood.as_view()),
     path('restaurant/', views.index ),
-    path('restaurant/homepage',  restaurant.homepage),
+    path('restaurant/choose',  views.index),
 ]

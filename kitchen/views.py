@@ -40,8 +40,6 @@ class CreateFood(APIView):
         return Response(serializer.data)
 
 class ListFood(APIView):
-    @needs_login_class
-    @is_staff_class
-    def get(self, request, user):
+    def get(self, request):
         foods = Food.objects.all().values()
         return Response({"food_list" : foods})
