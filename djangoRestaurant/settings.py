@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
 
-ALLOWED_HOSTS = ['elasticbeanstalktutorial-env-1.eba-m7jqda4u.us-east-1.elasticbeanstalk.com','127.0.0.1']
+ALLOWED_HOSTS = ['elasticbeanstalktutorial-env-1.eba-m7jqda4u.us-east-1.elasticbeanstalk.com','127.0.0.1','localhost']
 
 
 # Application definition
@@ -158,6 +158,7 @@ AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
+AWS_SESSION_TOKEN = os.environ['AWS_SESSION_TOKEN']
 
 
 #UNCOMMENT FOR DEPLOYMENT

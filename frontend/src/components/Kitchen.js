@@ -7,6 +7,27 @@ axios.defaults.xsrfCookieName = "csrftoken";
 
 export const Kitchen_homepage = ({onLogout}) => {
 
+    const [orders, setOrders] = useState([]);
+
+    const fetchData = ()=>{
+        axios({
+            method: "GET",
+            url:"/kitchen/listOrders",
+            responseType: 'json'
+        }).then((response)=>{
+            const data = response.data;
+            console.log(response.data);
+            setOrders(data.Items);
+            return response.json();
+
+        }).catch((error) => {
+            if (error.response) {
+                console.log(error.response);
+                console.log(error.response.status);
+            }
+        })
+    }
+
     const onClick = ()=>{
         axios({
             method: "POST",
@@ -34,6 +55,16 @@ export const Kitchen_homepage = ({onLogout}) => {
         <Link to="/kitchen/create_food">
             Create Food
         </Link>
+        <div>
+        <button onClick={fetchData}>List Orders</button>
+        {orders.length > 0 && (
+             <ul>
+             {orders.map((order) => (
+                 <li key={order.OrderID.N}><a>{order.OrderID.N}</a></li>
+             ))}
+             </ul>
+         )}
+        </div>
       </div>
     )
   }
