@@ -2,7 +2,6 @@ import React, { Component, useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate, Link } from 'react-router-dom';
 import ReactDOM from "react-dom";
 import axios from "axios";
-import { ListFood } from "./Restaurant";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
@@ -165,10 +164,72 @@ export const AddFood = ({onLogout}) =>{
             <br/>
             <input type="submit" value="Confirmar" />
         </form>
-        <ListFood/>
+        <br/>
+        <ExistingFoods/>
         </div>
 
     )
+}
+
+export const ExistingFoods = () =>{
+
+    const [food_list,setFoodList] = useState();
+    const [isLoading,setLoadStatus] = useState(true);
+
+    useEffect(() => {
+        // Get List of food
+        //axios
+        console.log("USE EFFECT");
+        axios({
+            method: "GET",
+            url:"/kitchen/food_list",
+          }).then((response)=>{
+            console.log("HERE -> " + response.data.food_list);
+            setFoodList(response.data.food_list);
+            setLoadStatus(false);
+          }).catch((error) => {
+            if (error.response) {
+              console.log(error.response);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+              }
+          })
+    }, [setFoodList]);
+
+    if (isLoading){
+        return(<div>
+                <a>LOADING</a>
+            </div>)
+    }else{
+        return(
+            <div>
+                <a>FOOD LIST</a>
+                <ul style={{display:"flex",flexWrap:"wrap",listStyleType:"none"}}>
+                {food_list.map(function(d, idx){
+                    return (
+                            <li key={idx} 
+                                onMouseEnter={(e) => {
+                                    e.target.style.backgroundColor="gray"
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.target.style.backgroundColor="lightgray";
+                                }}
+                                style={{width:"250px", height:"300px",padding:"20px",backgroundColor:"lightgray",borderRadius:"20px", marginRight:"10px", cursor:"pointer" }}>
+                                
+                                <div style={{display:"block", height:"70%", width:"90%"}}>
+                                    <img style={{maxWidth:"100%",maxHeight:"100%",height:"auto"}} src={"/media/"+d.photo}/>
+                                </div>
+                                <h3>{d.name}</h3>
+                                <p style={{textAlign:"right"}}>{d.cost} €</p>
+                                
+                            </li>
+                        )
+                })}
+                </ul>
+            </div>
+        )
+    }
+    
 }
 
 function KitchenPages() {

@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import { render } from "react-dom";
 import { KitchenPages, Kitchen_login, Kitchen_homepage, AddFood } from "./Kitchen";
-import { RestaurantPages, Restaurant_login, Restaurant_homepage, ListFood } from "./Restaurant";
+import { RestaurantPages, Restaurant_login, Restaurant_homepage, ListFood, ConfirmIdentity } from "./Restaurant";
 import axios from "axios";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -57,6 +57,7 @@ class App extends Component {
         <Routes>
           <Route exact path="/restaurant"  element={<RestaurantPages/>}></Route>
           <Route path="/restaurant/choose" element={<ListFood/>} />
+          <Route path="/restaurant/identity" element={<ConfirmIdentity/>} />
           <Route exact path="/kitchen"  element={this.state.isLogged && this.state.isStaff > 1 ?<Navigate to="/kitchen/homepage" />:<Kitchen_login onLogin={this.onLogged}/>}></Route>
           <Route path="/kitchen/homepage" element={this.state.isLogged && this.state.isStaff > 1 ?<Kitchen_homepage onLogout={this.onLogged}/>:<Navigate to="/kitchen"/>} />
           <Route path="/kitchen/create_food" element={this.state.isLogged && this.state.isStaff > 1 ?<AddFood onLogout={this.onLogged}/>:<Navigate to="/kitchen"/>} />
