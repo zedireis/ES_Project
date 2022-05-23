@@ -230,7 +230,7 @@ export const ListFood = () =>{
                     })}
                 </ul>
                 <h5 style={{textAlign:"center"}}>Total: {(current_cost/100).toFixed(2)} €</h5>
-                <Link to="/restaurant/identity" state={[food_list,selected_foods]}>
+                <Link to="/restaurant/confirm" state={[food_list,selected_foods]}>
                 Next Step
                 </Link>
             </div>
@@ -240,16 +240,51 @@ export const ListFood = () =>{
     
 }
 
-export const ConfirmIdentity = () =>{
+export const ConfirmOrder = () =>{
 
     const location = useLocation();
-    const food_list = location.state[0];
-    const selected_foods = location.state[1];
+    const food_list = location.state ? location.state[0] : null;
+    const selected_foods = location.state ? location.state[1]: null;
 
-    const nav=useNavigate();
+    const [selectedFile, setSelectedFile] = React.useState(null);
 
-    function goBack(){
-        nav(-1);
+    const [success, setSuccess] = React.useState(false);
+
+    const nav = useNavigate();
+
+    function handleSubmit(){
+        const formData = new FormData();
+        formData.append("photo", selectedFile);
+        formData.append("items", JSON.stringify(selected_foods));
+        axios({
+            method: "put",
+            url: "/restaurant/place_order",
+            data: formData,
+            headers: { "Content-Type": "multipart/form-data" },
+        }).then((response) => {
+            console.log("DID THIS ->" + response.data.details);
+            setSuccess(true);
+        }).catch((error) => {
+            console.log(error)
+        });
+    }
+
+    function verify(){
+        if(success){
+            //nav("/restaurant");
+        }else if(food_list == null || selected_foods == null){
+            nav("/restaurant/choose");
+        }else{
+            return( <form onSubmit={handleSubmit}>
+                        <input type="file" onChange={handleFileSelect} required/>
+                        <input type="submit" value="Confirm" />
+                    </form>
+            )
+        }
+    }
+
+    const handleFileSelect = (event) => {
+        setSelectedFile(event.target.files[0])
     }
 
     return(
@@ -257,7 +292,8 @@ export const ConfirmIdentity = () =>{
             <Link to="/restaurant/choose" state={[food_list,selected_foods]}>
                 Go Back
             </Link>
-            <a>{selected_foods[0].name}</a>
+            {verify()}
+            <br/>
         </div>
     )
 }
