@@ -10,6 +10,8 @@ from rest_framework.views import APIView
 import boto3
 import itertools
 from kitchen.models import Food
+from botocore.exceptions import ClientError
+import uuid
 
 # Create your views here.
 @needs_login
@@ -30,14 +32,23 @@ class ConfirmView(APIView):
             aws_session_token=AWS_SESSION_TOKEN
         )
 
+        s3 = boto3.client('s3',
+            region_name='us-east-1',
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+            aws_session_token=AWS_SESSION_TOKEN
+        )
+
         #client = boto3.client('stepfunctions', region_name='us-east-1')
 
-        with file.open("rb") as image_file:
-            image64 = base64.b64encode(image_file.read())
+        UUID = str(uuid.uuid1())
 
+        with file.open("rb") as image_file:
+            s3.upload_fileobj(image_file, 'projeto-es', UUID)
+            #image64 = base64.b64encode(image_file.read())
+        
         items_list = eval(request.data['items'])
 
-        
         price = 0
 
         d = sorted(items_list, key=operator.itemgetter("name"))
@@ -47,7 +58,8 @@ class ConfirmView(APIView):
                 price += round(getattr(f, "cost"),2) * len(list(g))
 
 
-        json_string = json.dumps({"photo":image64.decode("utf8"),"price":str(price),"items":items_list})
+        json_string = json.dumps({"photo":UUID,"price":str(price),"items":items_list})
+        #json_string = json.dumps({"photo":image64.decode("utf8"),"price":str(price),"items":items_list})
 
         Arn = 'arn:aws:states:us-east-1:752013087098:stateMachine:ConfirmUser'
         order = client.start_sync_execution(stateMachineArn=Arn, input=json_string)
