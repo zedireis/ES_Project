@@ -250,12 +250,19 @@ export const ConfirmOrder = () =>{
 
     const [success, setSuccess] = React.useState(false);
 
+    const [input, setInput] = React.useState(''); //valor inicial '', para não dar erro ao entrar na página
+
     const nav = useNavigate();
+
+    let tagLoc = React.createRef();
 
     function handleSubmit(){
         const formData = new FormData();
         formData.append("photo", selectedFile);
         formData.append("items", JSON.stringify(selected_foods));
+        formData.append("locationTag", input);
+        
+
         axios({
             method: "put",
             url: "/restaurant/place_order",
@@ -273,22 +280,26 @@ export const ConfirmOrder = () =>{
         if(success){
             //nav("/restaurant");
         }else if(food_list == null || selected_foods == null){
-            nav("/restaurant/choose");
+            nav("/restaurant");
         }else{
             return( <form onSubmit={handleSubmit}>
-                        <input type="file" onChange={handleFileSelect} required/>
-                        <input type="submit" value="Confirm" />
+                        <input type="file" onChange={handleFileSelect} required/><br></br>
+                        Location Tag: <input value={input} onInput={e => setInput(e.target.value)}/><br></br>
+                        <br></br><input type="submit" value="Confirmar" />
                     </form>
+
             )
         }
     }
 
     const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0])
+        
     }
 
     return(
         <div>
+            <h1>Confirmar Pedido</h1>
             <Link to="/restaurant/choose" state={[food_list,selected_foods]}>
                 Go Back
             </Link>
@@ -309,7 +320,8 @@ export const RestaurantPages = () => {
     return (
     <div>
         <h1>HOMEPAGE</h1>
-        <button onClick={onClick}>BEGIN</button>
+        <button onClick={onClick}>Começar a Compra</button><br></br>
+        <br></br><button onClick={onClick}>Confirmar Receção</button>
     </div>
     );
 }

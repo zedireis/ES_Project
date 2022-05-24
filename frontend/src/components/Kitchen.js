@@ -60,8 +60,12 @@ export const Kitchen_homepage = ({onLogout}) => {
         {orders.length > 0 && (
              <ul>
              {orders.map((order) => (
-                 <li key={order.OrderID.N}><a>{order.OrderID.N}</a></li>
-             ))}
+                 <li key={order.UUID.S}><a>{order.UUID.S}</a> | <a>{order.Status.S}</a> | <a>{order.Tag.N}</a></li>
+                 
+            
+            
+            
+            ))}
              </ul>
          )}
         </div>

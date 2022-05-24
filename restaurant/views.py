@@ -44,11 +44,14 @@ class ConfirmView(APIView):
         UUID = str(uuid.uuid1())
 
         with file.open("rb") as image_file:
-            s3.upload_fileobj(image_file, 'projeto-es', UUID)
+            s3.upload_fileobj(image_file, 'facesbucket1', UUID)
             #image64 = base64.b64encode(image_file.read())
         
         items_list = eval(request.data['items'])
+        tag = request.data['locationTag']
 
+
+        print("------------------------>TAG:", tag)
         price = 0
 
         d = sorted(items_list, key=operator.itemgetter("name"))
@@ -58,10 +61,12 @@ class ConfirmView(APIView):
                 price += round(getattr(f, "cost"),2) * len(list(g))
 
 
-        json_string = json.dumps({"photo":UUID,"price":str(price),"items":items_list})
+        json_string = json.dumps({"photo":UUID,"price":str(price),"items":items_list,"tag": tag})
+
+        print("JSON:",json_string)
         #json_string = json.dumps({"photo":image64.decode("utf8"),"price":str(price),"items":items_list})
 
-        Arn = 'arn:aws:states:us-east-1:752013087098:stateMachine:ConfirmUser'
+        Arn = 'arn:aws:states:us-east-1:998371520618:stateMachine:confirmUser'
         order = client.start_sync_execution(stateMachineArn=Arn, input=json_string)
 
         if(order["status"]=="FAILED"):
