@@ -69,7 +69,7 @@ Create a file .env in root folder with the following variables:
 DynamoDB -> Create table -> Name : users , PartitionKey : RekognitionId (String)
 
 S3 -> Create bucket -> Name : projeto-es
-[ if the bucket name is not available change to other. Then you need to change the bucket name also in Lambda addUser -> lambda_handler() ]
+[ if the bucket name is not available change to other. Then you need to change the bucket name also in Lambda addUser -> lambda_handler() and Lambda searchUser]
 
 ---- Then we need to add a user manualy ----
 
@@ -196,7 +196,7 @@ Password: es_project
 
 Lambda -> Name : searchUser , Language : Pyhton 3.9
 
-https://pastebin.com/nhFkDDsF
+https://pastebin.com/SqGFWWSk
 Password: es_project
 
 	import json
@@ -209,14 +209,17 @@ Password: es_project
 	    rekognition = boto3.client('rekognition', region_name='us-east-1')
 	    dynamodb = boto3.client('dynamodb', region_name='us-east-1')
 
-	    file = event['photo'].encode('utf-8')
-	    image64 = base64.b64decode(file)
+	    #file = event['photo'].encode('utf-8')
+	    #image64 = base64.b64decode(file)
+	    bucket = 'projeto-es'
 
 	    try:
 		response = rekognition.search_faces_by_image(
 		    CollectionId='users',
 		    MaxFaces=1,
-		    Image={'Bytes': image64}
+		    Image={'S3Object':{'Bucket':bucket,'Name':event['photo']}},
+		    #Image={'Bytes': image64},
+
 		)
 	    except rekognition.exceptions.from_code('InvalidParameterException') as e:
 		return {
@@ -276,8 +279,18 @@ StepFunction -> Name : ConfirmUser , Type : Express
 		  "BackoffRate": 2
 		}
 	      ],
-	      "Next": "Pass",
+	      "Next": "DeleteObject",
 	      "ResultPath": "$.rekognize"
+	    },
+	    "DeleteObject": {
+	      "Type": "Task",
+	      "Next": "Pass",
+	      "Parameters": {
+		"Bucket": "projeto-es",
+		"Key.$": "$.photo"
+	      },
+	      "Resource": "arn:aws:states:::aws-sdk:s3:deleteObject",
+	      "ResultPath": "$.s3"
 	    },
 	    "Pass": {
 	      "Type": "Pass",
