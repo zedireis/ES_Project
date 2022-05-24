@@ -79,6 +79,9 @@ S3 upload [photo.jpg] -> Properties -> Metadata -> Type : User Defined , Key : x
 
 Lambda -> Name : addUser , Language : Pyhton 3.9 -> Permissions -> Execution Role : Use an existing role -> Lab Role
 
+https://pastebin.com/gcNGafuf
+Password: es_project
+
 	from __future__ import print_function
 
 	import boto3
@@ -192,6 +195,9 @@ Lambda -> Name : addUser , Language : Pyhton 3.9 -> Permissions -> Execution Rol
 ---- Now with the user created, we can use a lambda to run rekognize (See ahead) ----
 
 Lambda -> Name : searchUser , Language : Pyhton 3.9
+
+https://pastebin.com/nhFkDDsF
+Password: es_project
 
 	import json
 	import boto3
