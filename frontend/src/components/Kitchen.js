@@ -35,7 +35,7 @@ export const Kitchen_homepage = ({onLogout}) => {
             responseType: 'json'
         }).then((response)=>{
             const data = response.data;
-            console.log(response.data);
+            //console.log(response.data);
             onLogout({loginStatus : false, staffStatus : 1});
             nav("/kitchen");
         }).catch((error) => {
@@ -49,19 +49,36 @@ export const Kitchen_homepage = ({onLogout}) => {
     return (
       <div>
         <header>
-            <button onClick={onClick}>Logout</button>
+        <div className="navigation">
+            <button className="button-74" onClick={onClick}>Logout</button>
+            <a>STAFF</a>
+        </div>
+            
         </header>
-        <h1>LOGIN SUCCESS!</h1>
-        <Link to="/kitchen/create_food">
+        <br/>
+        <Link className="button-56" to="/kitchen/create_food">
             Create Food
         </Link>
         <div>
-        <button onClick={fetchData}>List Orders</button>
+        <button className="button-56" onClick={fetchData}>List Orders</button>
         {orders.length > 0 && (
-             <ul>
+             <ul className="orders">
              {orders.map((order) => (
-                 <li key={order.OrderID.N}><a>{order.OrderID.N}</a></li>
-             ))}
+                 <li key={order.UUID.S}>
+                 <div>
+                    <a>{order.UUID.S}</a><br/>
+                    STATUS: <a>{order.Estado.S}</a><br/>
+                    TAG: <a>{order.Tag.N}</a><br/>
+                 </div>
+                 <ul id="orderItem">
+                    {order.Items.L.map((item, key) => (
+                        <li key={key}>
+                            <a>{item.S}</a>
+                        </li>
+                    ))}
+                 </ul>
+                 </li>
+            ))}
              </ul>
          )}
         </div>
@@ -113,25 +130,23 @@ export const  Kitchen_login = ({onLogin}) => {
 
     return (
         <div>
-        <h2>
-            <p>WELCOME TO KITCHEN HOMEPAGE!</p>
-        </h2>
-        <div>
+        <div className="staff">
+            <h2>STAFF</h2>
+        </div>
+        <div className="login">
             <input type="text" 
             name="email" 
             placeholder="Email" 
             value={email} 
             onChange={e=>onChange(e)} required />
-        </div>
-        <div>
+            <br/>
             <input type="password" 
             name="password" 
             placeholder="Password" 
             value={password} 
             onChange={e=>onChange(e)} required />
-        </div>
-        <p>{err.error}</p>
-        <div>
+            <br/>
+            <p>{err.error}</p>
             <button onClick={onClick}>Login</button>
         </div>
         <footer>Copyright ⓒ {year}</footer>
@@ -174,14 +189,18 @@ export const AddFood = ({onLogout}) =>{
 
     return(
         <div>
-        <form onSubmit={handleSubmit}>
-            <div>
+        <Link to="/kitchen/homepage" className="button-74">
+            BACK
+        </Link>
+        <form className="foodCover" onSubmit={handleSubmit}>
+            <a>Create a food</a>
+            <div className="foodInput">
             <input type="text" 
             name="name" 
             placeholder="Food Name" 
             value={name} 
             onChange={e=>onChange(e)} required />
-            <div>
+            <div className="foodInput">
                 <input type="number" 
                 step=".01"
                 name="cost" 
@@ -193,7 +212,7 @@ export const AddFood = ({onLogout}) =>{
             </div>
             <input type="file" onChange={handleFileSelect}/>
             <br/>
-            <input type="submit" value="Confirmar" />
+            <input className="button-87" type="submit" value="Confirmar" />
         </form>
         <br/>
         <ExistingFoods/>
@@ -234,7 +253,7 @@ export const ExistingFoods = () =>{
     }else{
         return(
             <div>
-                <a>FOOD LIST</a>
+                <a className="fancyList" style={{ fontSize : "xxx-large"}} >FOOD LIST</a>
                 <ul style={{display:"flex",flexWrap:"wrap",listStyleType:"none"}}>
                 {food_list.map(function(d, idx){
                     return (

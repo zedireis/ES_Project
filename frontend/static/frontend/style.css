@@ -1,0 +1,536 @@
+@font-face {
+    font-family: 'Andala Script';
+    src: url('fonts/AndalaScript-Regular.woff2') format('woff2'),
+        url('fonts/AndalaScript-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+  font-family: 'SUNFLOWER';
+  src: url('fonts/SBSUNFLOWERgarden-Medium.woff2') format('woff2'),
+      url('fonts/SBSUNFLOWERgarden-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Darktown';
+  src: url('fonts/DarktownRegular.woff2') format('woff2'),
+      url('fonts/DarktownRegular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nathan';
+  src: url('fonts/Nathan-Regular.woff2') format('woff2'),
+      url('fonts/Nathan-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kalulla';
+  src: url('fonts/Kalulla-Regular.woff2') format('woff2'),
+      url('fonts/Kalulla-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Singo';
+  src: url('fonts/Singo-Regular.woff2') format('woff2'),
+      url('fonts/Singo-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'InflatableFlamingo Reg';
+  src: url('fonts/InflatableFlamingo-Reg.woff2') format('woff2'),
+      url('fonts/InflatableFlamingo-Reg.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vanja';
+  src: url('fonts/Vanja-Regular.woff2') format('woff2'),
+      url('fonts/Vanja-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sausages';
+  src: url('fonts/Sausages-Regular.woff2') format('woff2'),
+      url('fonts/Sausages-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+.fancy{
+  font-family: SUNFLOWER;
+  font-weight: 100;
+}
+
+.fancyLarge{
+  font-family: SUNFLOWER;
+  font-weight: 100;
+  font-size: xxx-large;
+}
+
+.fancyList{
+  font-family: Singo;
+  font-weight: 100;
+  font-size: larger;
+  letter-spacing: 1px;
+}
+
+.fancyItem{
+  font-family: Vanja;
+  font-weight: 100;
+}
+
+.cover {
+  position: absolute;
+  text-align: -webkit-center;
+  top: 50%;
+  left: 0;
+  right: 0;
+  width: 450px;
+  padding: 35px;
+  margin: -83px auto 0 auto;
+  background-color: #ff7575;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px #ff7c7c, 0 0 0 20px #ffffffeb;
+  font-size: large;
+}
+
+.file {
+  margin: 20px;
+  font-size: large;
+  font-family: Vanja;
+}
+
+.locationTag{
+  display: flex;
+  margin: 5px;
+  font-family: Vanja;
+}
+
+.cena{
+  margin: 20px;
+  font-family: Vanja;
+}
+
+
+.locationTag > input{
+  width: 60%;
+  margin-left: 10px;
+}
+
+
+/* Title */
+.thirteen h1 {
+    font-family: Andala Script; color : #f45b69;
+    position:relative; font-size:120px; font-weight:60;  letter-spacing:0px; width:450px;
+    text-align:center; margin:auto; white-space:nowrap; border:10px solid rgba(2, 128, 144, 0.2);
+    padding:5px 11px 3px 11px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+body{
+    background-color: #fbeee0;
+}
+
+.navigation{
+    display: flex;
+    margin: 40px;
+}
+
+.navigation > a{
+    margin-left: 90px;
+    font-family: Singo;
+    font-size: xx-large;
+    margin-top: 10px;
+}
+
+.main{
+  display: flex;
+  justify-content: center;
+}
+
+.main > h2{
+  align-items: center;
+  background-color: #8daab3;
+}
+
+/* CSS */
+.button-74 {
+  background-color: #fbeee0;
+  border: 2px solid #028090;
+  border-radius: 30px;
+  box-shadow: #035964 4px 4px 0 0;
+  color: #035964;
+  cursor: pointer;
+  display: inline-block;
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-74:hover {
+  background-color: #fff;
+}
+
+.button-74:active {
+  box-shadow: #035964 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  .button-74 {
+    padding: 0 25px;
+  }
+}
+
+/* CSS */
+.button-56 {
+  align-items: center;
+  margin: 40px;
+  background-color: #fee6e3;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  width: 200px;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+}
+
+.button-56:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+.button-56:hover:after {
+  transform: translate(0, 0);
+}
+
+.button-56:active {
+  background-color: #ffdeda;
+  outline: 0;
+}
+
+.button-56:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  .button-56 {
+    padding: 0 40px;
+  }
+}
+
+/* CSS */
+.button-52 {
+  color: #02333a;
+  font-family: Singo;
+  text-decoration: none;
+  font-size: 26px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 13px 20px 13px;
+  outline: 0;
+  border: 2px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  text-align: center;
+}
+
+.button-52:after {
+  content: "";
+  background-color: #ffe54c;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 5px;
+  left: 5px;
+  transition: 0.2s;
+}
+
+.button-52:hover:after {
+  top: 0px;
+  left: 0px;
+}
+
+@media (min-width: 768px) {
+  .button-52 {
+    padding: 5px 45px 5px;
+  }
+}
+
+/* CSS */
+.button-87 {
+  margin: 10px;
+  padding: 15px 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+  border: 0px;
+  font-weight: 700;
+  box-shadow: 0px 0px 14px -7px #f09819;
+  background-image: linear-gradient(45deg, #47c7fa 0%, #97c4ca  51%, #47c7fa  100%);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-87:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+.button-87:active {
+  transform: scale(0.95);
+}
+
+/*Kitchen Login*/
+.login {
+overflow: hidden;
+background-color: white;
+padding: 40px 30px 30px 30px;
+border-radius: 10px;
+position: absolute;
+top: 50%;
+left: 50%;
+width: 400px;
+-webkit-transform: translate(-50%, -30%);
+-moz-transform: translate(-50%, -30%);
+-ms-transform: translate(-50%, -30%);
+-o-transform: translate(-50%, -30%);
+transform: translate(-50%, -30%);
+-webkit-transition: -webkit-transform 300ms, box-shadow 300ms;
+-moz-transition: -moz-transform 300ms, box-shadow 300ms;
+transition: transform 300ms, box-shadow 300ms;
+box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+}
+.login::before, .login::after {
+content: "";
+position: absolute;
+width: 600px;
+height: 600px;
+border-top-left-radius: 40%;
+border-top-right-radius: 45%;
+border-bottom-left-radius: 35%;
+border-bottom-right-radius: 40%;
+z-index: -1;
+}
+.login::before {
+left: 40%;
+bottom: -130%;
+background-color: rgba(69, 105, 144, 0.15);
+-webkit-animation: wawes 6s infinite linear;
+-moz-animation: wawes 6s infinite linear;
+animation: wawes 6s infinite linear;
+}
+.login::after {
+left: 35%;
+bottom: -125%;
+background-color: rgba(2, 128, 144, 0.2);
+-webkit-animation: wawes 7s infinite;
+-moz-animation: wawes 7s infinite;
+animation: wawes 7s infinite;
+}
+.login > input {
+font-family: "Asap", sans-serif;
+display: block;
+border-radius: 5px;
+font-size: 16px;
+background: white;
+width: 100%;
+border: 2px solid rgba(2, 128, 144, 0.2);
+padding: 10px 10px;
+margin: 15px -10px;
+}
+.login > p {
+    font-family: "Asap", sans-serif;
+    color : #f45b69;
+    display: block;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    border: 0;
+    padding: 10px 10px;
+    margin: 15px -10px;
+}
+.login > button {
+font-family: "Asap", sans-serif;
+cursor: pointer;
+color: #fff;
+font-size: 16px;
+text-transform: uppercase;
+width: 80px;
+border: 0;
+padding: 10px 0;
+margin-top: 10px;
+margin-left: -5px;
+border-radius: 5px;
+background-color: #f45b69;
+-webkit-transition: background-color 300ms;
+-moz-transition: background-color 300ms;
+transition: background-color 300ms;
+}
+.login > button:hover {
+background-color: #f24353;
+}
+
+@-webkit-keyframes wawes {
+from {
+    -webkit-transform: rotate(0);
+}
+to {
+    -webkit-transform: rotate(360deg);
+}
+}
+@-moz-keyframes wawes {
+from {
+    -moz-transform: rotate(0);
+}
+to {
+    -moz-transform: rotate(360deg);
+}
+}
+@keyframes wawes {
+from {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+}
+to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+}
+
+.staff{
+    width: 100%;
+    text-align: center;
+}
+
+.orders{
+  display: flex;
+  overflow: auto;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-bottom: 5px;
+}
+
+.orders > li{
+  padding: 20px;
+  background-color: lightgrey;
+  border-radius: 20px;
+  margin: 10px;
+  width: 28%;
+  list-style: none;
+  font-size: large;
+  font-family: Singo;
+  letter-spacing: 2px;
+}
+
+#orderItem{
+  font-size: medium;
+  font-family: Vanja;
+}
+
+.foodCover{
+  width: 450px;
+  padding: 35px;
+  background-color: #ff7575;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px #ff7c7c, 0 0 0 20px #ffffffeb;
+  font-size: large;
+  margin: 40px;
+  text-align: -webkit-center;
+}
+
+.foodCover > a{
+  font-size: x-large;
+  font-family: SUNFLOWER;
+}
+
+.foodInput{
+  text-align: left;
+}
+
+.foodInput > input{
+  width: 90%;
+  height: 30px;
+  margin: 10px;
+}

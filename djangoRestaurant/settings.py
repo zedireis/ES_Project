@@ -80,7 +80,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'djangoRestaurant.wsgi.application'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases

@@ -13,6 +13,7 @@ urlpatterns = [
     path('kitchen/food_list', kitchen.ListFood.as_view()),
     path('restaurant/', views.index ),
     path('restaurant/choose',  views.index),
+    path('restaurant/verify',  views.index),
     path('restaurant/confirm',  views.index),
     path('restaurant/place_order',  restaurant.ConfirmView.as_view()),
     path('kitchen/listOrders', kitchen.getListOrders),
