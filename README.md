@@ -256,106 +256,25 @@ Password: es_project
 
 StepFunction -> Name : ConfirmUser , Type : Express
 
-	{
-	  "Comment": "A description of my state machine",
-	  "StartAt": "Rekognize user",
-	  "States": {
-	    "Rekognize user": {
-	      "Type": "Task",
-	      "Resource": "arn:aws:states:::lambda:invoke",
-	      "Parameters": {
-		"Payload.$": "$",
-		"FunctionName": "arn:aws:lambda:us-east-1:752013087098:function:searchUser:$LATEST"
-	      },
-	      "Retry": [
-		{
-		  "ErrorEquals": [
-		    "Lambda.ServiceException",
-		    "Lambda.AWSLambdaException",
-		    "Lambda.SdkClientException"
-		  ],
-		  "IntervalSeconds": 2,
-		  "MaxAttempts": 6,
-		  "BackoffRate": 2
-		}
-	      ],
-	      "Next": "DeleteObject",
-	      "ResultPath": "$.rekognize"
-	    },
-	    "DeleteObject": {
-	      "Type": "Task",
-	      "Next": "Pass",
-	      "Parameters": {
-		"Bucket": "projeto-es",
-		"Key.$": "$.photo"
-	      },
-	      "Resource": "arn:aws:states:::aws-sdk:s3:deleteObject",
-	      "ResultPath": "$.s3"
-	    },
-	    "Pass": {
-	      "Type": "Pass",
-	      "Next": "Choice",
-	      "Parameters": {
-		"user.$": "$.rekognize.Payload.user",
-		"statusCode.$": "$.rekognize.Payload.statusCode",
-		"items.$": "$.items",
-		"price.$": "$.price"
-	      }
-	    },
-	    "Choice": {
-	      "Type": "Choice",
-	      "Choices": [
-		{
-		  "Variable": "$.statusCode",
-		  "NumericEquals": 200,
-		  "Next": "DynamoDB PutItem"
-		},
-		{
-		  "Variable": "$.statusCode",
-		  "NumericEquals": 403,
-		  "Next": "Fail (1)"
-		}
-	      ],
-	      "Default": "Fail"
-	    },
-	    "DynamoDB PutItem": {
-	      "Type": "Task",
-	      "Resource": "arn:aws:states:::dynamodb:putItem",
-	      "Parameters": {
-		"TableName": "Orders",
-		"Item": {
-		  "UUID": {
-		    "S.$": "States.Format('{}_{}', $.user, $$.State.EnteredTime)"
-		  },
-		  "Items": {
-		    "L.$": "$.items..name"
-		  },
-		  "Price": {
-		    "N.$": "$.price"
-		  }
-		}
-	      },
-	      "Next": "Success",
-	      "Catch": [
-		{
-		  "ErrorEquals": [
-		    "States.ALL"
-		  ],
-		  "ResultPath": "$.error",
-		  "Next": "Fail"
-		}
-	      ]
-	    },
-	    "Fail": {
-	      "Type": "Fail",
-	      "Cause": "No face found"
-	    },
-	    "Success": {
-	      "Type": "Succeed"
-	    },
-	    "Fail (1)": {
-	      "Type": "Fail",
-	      "Cause": "No such user"
-	    }
-	  }
-	}
+https://pastebin.com/Au2D1hZk
+Password: es_project
+
+StepFunction -> Name : cookFood , Type : Express
+
+https://pastebin.com/jvzAxYSD
+Password: es_project
+
+StepFunction -> Name : listOrders , Type : Express
+
+https://pastebin.com/TsRq7bw9
+Password: es_project
+
+Lambda -> Name : confirmReception , Language : Pyhton 3.9
+
+https://pastebin.com/iyJNwmxf
+Password: es_project
+
+StepFunction -> Name : confirmReception , Type : Express
+
+https://pastebin.com/Yd3vpYgn
+Password: es_project
