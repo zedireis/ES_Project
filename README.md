@@ -80,7 +80,7 @@ S3 upload [photo.jpg] -> Properties -> Metadata -> Type : User Defined , Key : x
 Lambda -> Name : addUser , Language : Pyhton 3.9 -> Permissions -> Execution Role : Use an existing role -> Lab Role
 
 https://pastebin.com/gcNGafuf
-Password: es_project
+Password: <!-- es_project -->
 
 	from __future__ import print_function
 
@@ -197,7 +197,7 @@ Password: es_project
 Lambda -> Name : searchUser , Language : Pyhton 3.9
 
 https://pastebin.com/SqGFWWSk
-Password: es_project
+Password: <!-- es_project -->
 
 	import json
 	import boto3
@@ -257,24 +257,24 @@ Password: es_project
 StepFunction -> Name : ConfirmUser , Type : Express
 
 https://pastebin.com/Au2D1hZk
-Password: es_project
+Password: <!-- es_project -->
 
 StepFunction -> Name : cookFood , Type : Express
 
 https://pastebin.com/jvzAxYSD
-Password: es_project
+Password: <!-- es_project -->
 
 StepFunction -> Name : listOrders , Type : Express
 
 https://pastebin.com/TsRq7bw9
-Password: es_project
+Password: <!-- es_project -->
 
 Lambda -> Name : confirmReception , Language : Pyhton 3.9
 
 https://pastebin.com/iyJNwmxf
-Password: es_project
+Password: <!-- es_project -->
 
 StepFunction -> Name : confirmReception , Type : Express
 
 https://pastebin.com/Yd3vpYgn
-Password: es_project
+Password: <!-- es_project -->
